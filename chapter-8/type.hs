@@ -198,3 +198,46 @@ instance Show TrafficLight where
 --     Just x == Just y = x == y 
 --     Nothing == Nothing = True
 --     _ == _ = False
+
+-- yes-no typeclass
+
+class YesNo a where
+    yesno :: a -> Bool
+
+instance YesNo Int where
+    yesno 0 = False
+    yesno _ = True
+
+instance YesNo [a] where
+    yesno [] = False
+    yesno _ = True
+
+instance YesNo Bool where
+    yesno = id
+
+instance YesNo (Maybe a) where
+    yesno (Just _) = True
+    yesno Nothing = False
+
+instance YesNo (Tree a) where
+    yesno EmptyTree = False
+    yesno _ = True
+
+instance YesNo TrafficLight where
+    yesno Red = False
+    yesno _ = True
+
+yesnoIf :: (YesNo y) => y -> a -> a -> a 
+yesnoIf yesnoVal yesResult noResult = if yesno yesnoVal then yesResult else noResult
+
+-- functor
+class Functor' f where
+    fmap' :: (a -> b) -> f a -> f b
+
+instance Functor' [] where
+    fmap' = map
+
+instance Functor' Maybe where
+    fmap' f (Just x) = Just (f x)
+    fmap' f Nothing = Nothing
+
