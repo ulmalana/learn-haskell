@@ -147,3 +147,8 @@ in3 start = do
 
 canReachIn3 :: KnightPos -> KnightPos -> Bool
 canReachIn3 start end = end `elem` in3 start
+
+-- composing fn with a -> m b type
+-- equivalent to (f . g) x = f (g x) but with monad
+(<=<) :: (Monad m) => (b -> m c) -> (a -> m b) -> (a -> m c)
+f <=< g = (\x -> g x >>= f)
