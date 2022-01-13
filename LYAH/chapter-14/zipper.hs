@@ -80,3 +80,26 @@ attach t (_, bs) = (t, bs)
 topMost :: Zipper a -> Zipper a 
 topMost (t, []) = (t, [])
 topMost z = topMost (goUp z)
+
+-- 
+type ListZipper a = ([a], [a])
+
+goForward :: ListZipper a -> ListZipper a 
+goForward (x:xs, bs) = (xs, x:bs)
+
+goBack :: ListZipper a -> ListZipper a 
+goBack (xs, b:bs) = (b:xs, bs)
+
+-- with monad
+goLeft3 :: Zipper a -> Maybe (Zipper a)
+goLeft3 (Node x l r, bs) = Just (l, LeftCrumb x r:bs)
+goLeft3 (Empty, _) = Nothing
+
+goRight3 :: Zipper a -> Maybe (Zipper a)
+goRight3 (Node x l r, bs) = Just (r, RightCrumb x l:bs)
+goRight3 (Empty, _) = Nothing
+
+goUp3 :: Zipper a -> Maybe (Zipper a)
+goUp3 (t, LeftCrumb x r:bs) = Just (Node x t r, bs)
+goUp3 (t, RightCrumb x l:bs) = Just (Node x l t, bs)
+goUp3 (_, []) = Nothing
