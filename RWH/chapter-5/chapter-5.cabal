@@ -1,0 +1,13 @@
+Name:       chapter5
+Version:    0.1
+Synopsis:   My pretty printing library for JSON
+Description:
+    An example of how to write a library in Haskell.
+Author:     Riz Maulana
+Maintainer: Riz Maulana
+Cabal-Version: >= 1.2
+library
+    Exposed-Modules:    Prettify
+                        PrettyJSON
+                        SimpleJSON
+    Build-Depends:      base >= 2.0
