@@ -1,0 +1,4 @@
+The codes in this directory compile but do not work correctly.
+It generates incorrectly results. I have not tested this code in real image with barcode.
+Comments from previous attempts (shown in the RWH website) showed that this behaviour is common.
+
