@@ -15,5 +15,7 @@ type B = MaybeT (Writer [String])
 a :: A ()
 a = problem
 
+
+-- code below wont compile
 -- b :: B ()
 -- b = problem
