@@ -1,3 +1,4 @@
+module Parser where 
 -- Parser : a program that takes a string of char and returns a form of structural tree. 
 
 -- Given a type Tree, a parser can be thought as a function
@@ -244,3 +245,55 @@ nats = do
                     natural)
         symbol "]"
         return (n:ns)
+
+-- Arithmetics expression
+-- building grammar for arithmetic expresion (only addition
+-- and multiplication and right associative)
+--
+-- expr ::= term (+ expr | E)
+-- term ::= factor (* term | E)
+-- factor ::= (expr) | nat
+-- nat ::= 0 | 1 | 2 | ...
+--
+-- E is empty string
+
+-- update: support substraction and division
+expr :: Parser Int
+expr = do
+        t <- term
+        do
+            symbol "+"
+            e <- expr
+            return ( t + e)
+            <|> do
+                symbol "-"
+                e <- expr
+                return (t - e)
+            <|> return t
+
+term :: Parser Int
+term = do
+        f <- factor
+        do
+            symbol "*"
+            t <- term
+            return (f * t)
+            <|> do
+                symbol "/"
+                t <- term
+                return (f `div` t)
+            <|> return f
+
+factor :: Parser Int
+factor = do
+            symbol "("
+            e <- expr
+            symbol ")"
+            return e
+            <|> natural
+
+eval :: String -> Int
+eval xs = case (parse expr xs) of
+            [(n, [])]   -> n
+            [(_, out)]  -> error ("Unused input " ++ out)
+            []          -> error "Invalid input"
