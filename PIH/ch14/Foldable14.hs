@@ -66,3 +66,28 @@ instance Foldable' Tree where
 
 tree :: Tree Int
 tree = Node (Node (Leaf 1) (Leaf 2)) (Leaf 3)
+
+-- Other useful functions included in Foldable class
+-- (Foldable' class does not support these functions)
+--
+-- null     :: t a -> Bool
+-- length   :: t a -> Int
+-- elem     :: Eq => a -> t a -> Bool
+-- maximum  :: Ord a => t a -> a
+-- minimum  :: Ord a => t a -> a
+-- sum      :: Num a => t a -> a
+-- product  :: Num a => t a -> a
+-- toList   :: t a -> [a]
+
+-- Average function that only supports Int
+--
+-- average :: [Int] -> Int
+-- average ns = sum ns `div` length ns
+--
+-- Generalised average function with foldable
+-- 
+-- average :: Foldable t => t Int -> Int
+-- average ns = sum ns `div` length ns
+
+-- When creating a new type, considering making it a Foldable
+-- and define a minimal implementation of either foldMap or foldr
