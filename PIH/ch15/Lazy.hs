@@ -157,3 +157,70 @@ ones = 1 : ones
 
 -- With lazy evaluation, ones above is not an infinite list,
 -- but rather a potentially infinite list.
+
+-- Sieve of Eratosthenes
+primes :: [Int]
+primes = sieve [2..]
+
+sieve :: [Int] -> [Int]
+sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
+
+-- Strict evaluation can be forced with $!
+-- Example: f $! x is the same as f x, but the argument x is evaluated
+-- first before the function f is applied.
+--      
+--      square $! (1+2)     { applying + }
+-- =    square $! 3         { applying $! }
+-- =    square 3            { applying square }
+-- =    3 * 3               { applying * }
+-- =    9
+
+-- There are several way of forcing evaluation in a function with
+-- multiple arguments
+-- Example: f x y
+-- 1. (f $! x) y    --> forces top-level evaluation of x
+-- 2. (f x) $! y    --> forces top-level evaluation of y
+-- 3. (f $! x) $! y --> forces top-level evaluation of x and y
+
+-- Strict evaluation is mainly used to improve the space performance
+-- Example: sumwith
+sumwith :: Int -> [Int] -> Int
+sumwith v [] = v
+sumwith v (x:xs) = sumwith (v+x) xs
+-- with lazy evaluation
+-- (this will construct a summation first before performing addition,
+-- which will need huge space for huge list)
+--      sumwith 0 [1,2,3]           { applying sumwith }
+-- =    sumwith (0+1) [2,3]         { applying sumwith }
+-- =    sumwith ((0+1)+2) [3]       { applying sumwith }
+-- =    sumwith (((0+1)+2)+3) []    { applying sumwith }
+-- =    ((0+1)+2)+3                 { applying the first + }
+-- =    (1+2)+3                     { applying the first + }
+-- =    3+3                         { applying + }
+-- =    6
+--
+-- with strict evaluation
+-- (requires more steps, but immediately evaluate)
+sumwith' v [] = v
+sumwith' v (x:xs) = (sumwith' $! (v+x)) xs
+--      sumwith' 0 [1,2,3]          { applying sumwith' }
+-- =    (sumwith' $! (0+1)) [2,3]   { applying + }
+-- =    (sumwith' $! 1) [2,3]       { applying $! }
+-- =    sumwith' 1 [2,3]            { applying sumwith' }
+-- =    (sumwith' $! (1+2)) [3]     { applying + }
+-- =    (sumwith' $! 3) [3]         { applying $! }
+-- =    sumwith' 3 [3]              { applying sumwith' }
+-- =    (sumwith' $! (3+3)) []      { applying + }
+-- =    (sumwith' $! 6) []          { applying $! }
+-- =    sumwith' 6 []               { applying sumwith' }
+-- =    6
+
+-- strict version of foldl in Data.Foldable
+-- foldl' :: (a -> b -> a) -> a -> [b] -> a
+-- foldl' f v [] = v
+-- foldl' f v (x:xs) = ((foldl' f) $! (f v x)) xs
+
+-- with foldl' we can define sumwith to be
+-- sumwith = foldl' (+)
+
+-- Strict evaluation is not a silver bullet for improving space behaviour
