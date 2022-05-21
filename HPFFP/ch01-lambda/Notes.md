@@ -30,19 +30,19 @@
     * Example above also anonymous.
 * **Alpha equivalence**: any variable in lambda is not semantically meaningful and
   can be replaced with other symbols. So, following functions are the same:
-    * &lambda x . x
-    * &lambda d . d
-    * &lambda z . z 
+    * &lambda;x.x
+    * &lambda;d.d
+    * &lambda;z.z 
 * **Beta reduction**: substituting the input expression for all instances/variables
   within the body, evaluate the expression, then remove the head of abstraction (&lambda;).
     * Example: applying **(&lambda;x.x) to 2** returns **2**
     * Another ex: **(&lambda;x.x+1) 2**  returns **3**
     * (&lambda;x.x)(&lambda;y.y)z -> (&lambda;y.y)z -> z
 * **Free variables**: variables that are not bound in the head
-    * (&lambda; x.xy) : x is bound variable, y is free variable
+    * (&lambda;x.xy) : x is bound variable, y is free variable
     * evaluating **(&lambda;x.xy)z** returns **zy**.
     * Alpha equivalence doesnt apply to free variables.
-    * (&lambda;x.xz) != (&lambda;x.xy)
+    * **(&lambda;x.xz)** != **(&lambda;x.xy)**
 * **One &lambda;** only bind **one parameter** and accept **one argument**
     * functions with multiple args have multiple, nested heads.
     * evaluate the first (leftmost) head, and then the next head.
