@@ -50,3 +50,35 @@
     * rediscovered by Haskell Curry and is commonly called *currying*
     * example: **(&lambda;xy.xy)** is a shorthand for two nested lambdas and
       becomes **&lambda;x(&lambda;y.xy)**
+* **Evaluation is simplification**
+    * **Beta normal form**: cant be beta-reduced (apply lambdas) any further
+    * **Beta normal form** == **fully evaluated/executed expression**
+    * Example: 2 is the normal form of 2000/1000
+    * Another: &lambda;x.x is fully reduced, but (&lambda;x.x)z is not.
+
+## Combinators
+
+* **Combinator**: lambda term with no free variables.
+    * serves only to combine arguments
+* **Example of combinators**:
+    * &lambda;x.x
+    * &lambda;xy.x
+    * &lambda;xyz.xz(yz)
+* **Example of non combinators**:
+    * &lambda;y.x (x is free and not bound)
+    * &lambda;x.xz (z is free and not bound)
+
+## Divergence
+
+* Not all lambda terms can be reduced to beta normal form.
+* Fully reduced terms is called *converge*
+* When the reduction process never terminates, it is called *diverge*
+    * Example of divergence:
+    * (&lambda;x.xx)(&lambda;x.xx) (omega)
+* **Diverged terms wont produce answers of meanigful result**.
+
+## Summary
+
+Haskell is semantically a lambda calculus with many decorations to make it
+easier to write. Haskell programs is about evaluating expressions rather than
+executing instructions.
