@@ -30,3 +30,22 @@ values. Example: currying `(+)`, its type changes from `Num a => a -> a -> a`
 to `Num a => (a, a) -> a` (**takes two arguments, return one result**).
 * **Uncurried functions**: one function, many arguments.
 * **Curried functions**: many functions, one argument apiece. 
+
+## Polymorphism
+
+* Polymorphic = **"made of many forms"**
+* Polymophic function: One function for values with many different types.
+* Kinds of type signature: concrete, constrained polymorphic, parametric
+  polymorphic.
+* Polymorphism in Haskell: **Constrained polymorphism** and **parametric
+  polymorphism**
+* **ad-hoc polymorphism** = constrained polymorphism. implemented with
+  typeclasses.
+* Parametric polymorphism uses type variables and is **broader** than constrained.
+* **more general (polymorphic), more flexible, less method**. **more
+  constrained/concrete, less flexbile, more methods**
+## Type inference
+
+* Type inference in Haskell is built on extended version of
+  **Damas-Hindley-Milner type system**.
+* Infer the most generally applicable type that is still correct.
