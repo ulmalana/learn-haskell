@@ -92,3 +92,24 @@ Haskell Report:
 * Examples:
     * `enumFromTo 3 8` -> `[3,4,5,6,7,8]`
     * `enumFromTo 'a' 'f'` -> `"abcdef"`
+
+## `Show` Typeclass
+
+* This typeclass is for creating string representation of types so that it can
+  be displayed.
+* It has 3 basic functions:
+    * `showsPrec :: Int -> a -> ShowS`
+    * `show :: a -> String`
+    * `showList :: [a] -> String`
+* **Some typeclasses that can be derived automatically**:
+    * `Eq`
+    * `Ord`
+    * `Enum`
+    * `Bounded`
+    * `Read`
+    * `Show`
+
+## `Read` Typelcass
+
+* **The opposite of `Show`**. Takes strings and turns them into something.
+* **AVOID THIS TYPECLASS AS MUCH AS YOU CAN**
