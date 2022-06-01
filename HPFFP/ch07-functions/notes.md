@@ -26,3 +26,22 @@ triple x = x * 3`
 * Incomplete pattern matches will return **bottom**, non-value used to denote
   that  the program cant return something. It will throw exception.
 
+## Higher-order functions
+
+* Functions that **accept functions as arguments**
+* **To manipulate how functions are applied to arguments**
+
+## Function composition
+
+* `(.) :: (b -> c) -> (a -> b) -> a -> c`
+* `(f . g) x = f (g x)`
+
+## Pointfree style
+
+* **Point** in pointfree refers to **the arguments**.
+* a style of composing functions **without specifying the arguments**.
+* example: taking the first 5 even numbers starting from the input given
+    * **ordinary**
+    * `f x = take 5 . filter even . enumFrom $ x`
+    * **pointfree**
+    * `f = take 5 .filter even . enumFrom` 
