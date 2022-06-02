@@ -11,3 +11,12 @@ like human language.
 * Recursion is also **self-referential compisition**.
 * Haskell implemented recursion with **Y Combinator**.
 
+## Bottom
+
+* ⊥ or **bottom**: computations that dont successfully return result.
+    * **failed with an error**
+    * **failed to terminate**
+* can be specified with `error` keyword to make a bottom in a code
+    * example: `f True = error "stop here"`
+
+
