@@ -108,4 +108,30 @@ it contains `undefined` because `length` does not evaluate values, only spines.
 * `sum [] = 0
    sum (x:xs) = x + sum xs`
 
+## Transforming list
+
+We can apply a function to each element of a list recursively using:
+    * `map :: (a -> b) -> [a] -> [b]` (specific for list)
+    * `fmap :: Functor f => (a -> b) -> f a -> f b` (for Functor typeclass, including list)
+
+* `map` **doesnt really traverse the whole list and apply the function**, only
+  when we force it to.
+* we can put anonymous function as function argument to `map` or `fmap`. 
+
+## Filtering list
+
+We can filter a list to include only elements we want with a predicate.
+
+* filter only even number less than 10: `filter even [1..10]`
+
+## Zipping list
+
+* Combining values from multiple lists into a single list.
+    * `> zip [1, 2] [4, 5, 6]` -> `[(1,2), (2,4)]`
+
+* We can also unzip to recover the list with `unzip`. `unzip` may not recover the true lists since `zip` must stop on the shortest list.
+
+* We can use `zipWith` to apply a function before zipping two lists.
+    * `> zipWith (*) [1,2] [4,5,6]` -> `[4,10]`
+
 
