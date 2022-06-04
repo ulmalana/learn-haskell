@@ -45,6 +45,8 @@ Two list purposes in Haskell:
 * **`(:)`** or the **con** is the spine that ties values.
 * `[1,2,3]` is actually `1 : 2 : 3 : []` or `1 : (2 : (3 : []))`
 * Above list can also be represented as a tree
+
+```
     :
    / \
   1   :
@@ -52,6 +54,7 @@ Two list purposes in Haskell:
     2   :
        / \
       3   []
+```
 
 * `3` is processed first with `[]`, up until putting `1` at the front.
 
@@ -60,29 +63,35 @@ Two list purposes in Haskell:
 * `:sprint` command in GHCi can be used to check whether some expressions has
   ben evaluated.
 
-`> let blah = enumFromTo 'a' 'z'
+```
+ > let blah = enumFromTo 'a' 'z'
  > :sprint blah
- blah = _`
+ blah = _
+```
 
 `blah = _ ` indicates that `blah` is unevaluated. Then try to evaluate part of
 `blah`:
 
-`> take 1 blah
+```
+ > take 1 blah
  > :sprint blah
  blah = 'a' : _
  > take 2 blah
  > :sprint blah
- blah = 'a' : 'b' : _`
+ blah = 'a' : 'b' : _
+```
 
 After taking 2 elements of `blah`, `:sprint` command shows its two elements
 (`'a'` and `'b'`) have been evaluated, and the rest is still unevaluated.
 
 * Some commands are strict, so when running `:sprint` it may immediately display fully-evaluated expressions, like `length`. 
 
-`> length blah
+```
+ > length blah
  26
  > :sprint blah
- blah = "abcdefghijklmnopqrstuvwxyz"`
+ blah = "abcdefghijklmnopqrstuvwxyz"
+```
 
 ### Spines are evaluated independently of values
 
@@ -105,8 +114,10 @@ After taking 2 elements of `blah`, `:sprint` command shows its two elements
   values in the list. So, `length [1, undefined, 2]` still returns `3` although
 it contains `undefined` because `length` does not evaluate values, only spines.
 * `sum` is example of forcing both the spine and values.
-* `sum [] = 0
-   sum (x:xs) = x + sum xs`
+* ```
+   sum [] = 0
+   sum (x:xs) = x + sum xs
+  ```
 
 ## Transforming list
 
@@ -133,5 +144,4 @@ We can filter a list to include only elements we want with a predicate.
 
 * We can use `zipWith` to apply a function before zipping two lists.
     * `> zipWith (*) [1,2] [4,5,6]` -> `[4,10]`
-
 
