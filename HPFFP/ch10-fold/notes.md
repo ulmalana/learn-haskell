@@ -101,3 +101,42 @@ left-associativity of `foldl`.
 > foldl (flip (:)) [] [1..3]
 [3,2,1]
 ```
+
+## How to write fold functions
+
+1. Think about the **starting value**
+    * Usually the `identity` for the function, ex: `0` for sum, `1` for
+      muliplication.
+
+2. Consider the arguments
+    * a folding function takes 2 args: `a` and `b`.
+    * `a` is **one element of the list**
+    * `b` is **starting value** or **accumulated value**
+
+## `foldr` and `foldl` relationship
+
+`foldr f acc xs` **=** `foldl (flip f) acc (reverse xs)`
+
+## Scan function
+
+* Similar to fold, but returns a list of intermediate values of evaluation
+
+* ```
+    foldr :: (a -> b -> b) -> b -> [a] -> b
+    scanr :: (a -> b -> b) -> b -> [a] -> [b]
+
+    foldl :: (b -> a -> b) -> b -> [a] -> b
+    scanl :: (b -> a -> b) -> b -> [a] -> [b]
+  ```
+
+* Example:
+    * ```
+        scanr (+) 0 [1..3]
+        [1 + (2 + (3 + 0)), 2 + (3 + 0), 3 + 0, 0]
+        [6, 5, 3, 0]
+      ```
+    * ```
+        scanl (+) 0 [1..3]
+        [0, 0 + 1, 0 + 1 + 2, 0 + 1 + 2 + 3]
+        [0, 1, 3, 6]
+      ```
