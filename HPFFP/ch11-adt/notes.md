@@ -124,3 +124,59 @@ argument structures using *sum* and *product***.
   (`Eq`, `Ord, `Enum`, `Show`) automatically.
 * We need to use pragma `GeneralizedNewtypeDeriving` to make user-defined
   typeclass instances for `newtype`.
+
+## Sum types
+
+* Example: `data Bool = False | True`
+* `|` or pipe represents logical disjunction or **OR**. This is the **sum** in
+  ADT.
+* Get the cardinality of sum types by **summing** the cardinality of their
+  constructors.
+* `True` and `False` are nullary constructors and each have value of **1**
+* By summing the cardinality of its constructors, `Bool` has cardinality of
+  **2**.
+* The cardinality of `BigSmall` is 4
+    * ```
+        data BigSmall = Big Bool | Small Bool deriving (Eq, Show)
+      ```
+
+## Product types
+
+* A data constructor with **two or more type arguments** is a **product**.
+* Get the cardinality by **multplying** the cardinality of its constructors.
+* Example:
+    * ```
+        -- QuantumBool is sum type and its cardinality is 3
+        data QuantumBool = QuantumTrue
+                        | QuantumFalse
+                        | QuantumBoth deriving (Show, Eq)
+
+        -- TwoQ is product type and its cardinality is
+        -- QuantumBool x QuantumBool
+        ---3 x 3 = 9
+        data TwoQ = MkTwoQ QuantumBool QuantumBool deriving (Show, Eq)
+      ```
+* **IMPORTANT: cardinality of datatype ~= how difficult it is to reason** 
+
+### Record syntax
+
+* **Records**: product types with additional syntax to access the fields.
+* Example:
+    * ```
+        -- simple product type
+        data Person = MkPerson String Int deriving (Eq, Show)
+
+        -- record
+        data Person = 
+            Person { name :: String,
+                     age :: Int }
+                   deriving (Eq, Show) 
+      ```
+* With record syntax, we can access the contained information with `name` and
+  `age` functions.
+    * ```
+        > let rz = Person "Riz" 25
+        > name rz
+        "Riz"
+      ```
+
