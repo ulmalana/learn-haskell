@@ -179,4 +179,16 @@ argument structures using *sum* and *product***.
         > name rz
         "Riz"
       ```
+## Normal form
 
+* ADT also has **distributive property**
+    * a \* (b + c) = (a \* b) + (a \* c)
+* Normal form is **sum of products**
+* Example of "sum of product" types, ie in normal form:
+    * ```
+        data Expr = Number Int
+                    | Add Expr Expr
+                    | Minus Expr
+                    | Mult Expr
+                    | Divide Expr Expr
+      ```
