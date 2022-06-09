@@ -192,3 +192,68 @@ argument structures using *sum* and *product***.
                     | Mult Expr
                     | Divide Expr Expr
       ```
+
+## Function type is exponential
+
+* **function type is the exponent operator**
+    * a function `a -> b` have `b^a` inhabitants.
+    * Example: `Bool -> Bool` have `2^2` inhabitants
+* ```
+    a -> b -> c
+    (c ^ b) ^ a
+    c ^ (b * a)
+  ```
+* example
+    * ```
+        data Quantum = Yes | No | Both deriving (Eq, Show)
+
+        -- Quantum sum: 3 + 3
+        quantSum1 :: Either Quantum Quantum 
+        quantSum1 = Right Yes
+
+        quantSum2 :: Either Quantum Quantum
+        quantSum2 = Right No
+
+        quantSum3 :: Either Quantum Quantum
+        quantSum3 = Right Both
+        
+        quantSum4 :: Either Quantum Quantum
+        quantSum4 = Left Yes
+        .
+        .
+        .
+      ```
+    * ```
+        -- Quantum product: 3 * 3
+        quantProd1 :: (Quantum, Quantum)
+        quantProd1 = (Yes, Yes)
+        
+        quantProd2 :: (Quantum, Quantum)
+        quantProd2 :: (Yes, No)
+        
+        quantProd3 :: (Quantum, Quantum)
+        quantProd3 = (Yes, Both)
+        .
+        .
+        .
+      ```
+    * ```
+        --- Quantum function: 3 ^ 3
+        quantFlip1 :: Quantum -> Quantum
+        quantFlip1 Yes = Yes
+        quantFlip1 No = Yes
+        quantFlip1 Both = Yes
+
+        quantFlip2 :: Quantum -> Quantum
+        quantFlip2 Yes = Yes
+        quantFlip2 No = Yes
+        quantFlip2 Both = No
+
+        quantFlip3 :: Quantum -> Quantum
+        quantFlip3 Yes = Yes
+        quantFlip3 No = Yes
+        quantFlip3 Both = Both
+        .
+        .
+        .
+      ```
