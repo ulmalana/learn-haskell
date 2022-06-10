@@ -257,3 +257,37 @@ argument structures using *sum* and *product***.
         .
         .
       ```
+
+## Higher-kinded datatypes
+
+* Kind that needs to be supplied with arguments in order to become fully
+  applied (**\***).
+* Example:
+    * **\* -> \***
+    * **\* -> \* -> \***
+* Getting comfortable with higher-kinded types is important as type arguments
+  provide a generic way to express "holes" to be filled later.
+
+## Lists are polymorphic
+
+* List can contain values any type (that have **\*** kind).
+
+### Infix type and data constructors
+
+* **Non-alphanumeric operators** (+, \*, -, etc.) are **infix** by default.
+* Any operator that starts with a colon (:) must be **an infix type or data
+  constructor**.
+* All infix data constructors must start with a colon.
+    * the only exception: `(->)`
+    * cant be `::` since it is reserved.
+* Creating our own **non-alphanumeric data constructor**
+    * ```
+        data Product a b = a :&: b deriving (Eq, Show)
+      ```
+    * ```
+        > 1 :&: 2
+        1 :&: 2
+        > :t 1 :&: 2
+        1 :&: 2 :: (Num a, Num b) => Product a b
+      ```
+* Choosing to use infix data constructors is only aesthetic preference.
