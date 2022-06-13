@@ -1,5 +1,5 @@
 module Hello where
 
-sayHello :: IO ()
-sayHello = putStrLn "Hallo ini dari module!"
+sayHello :: String -> IO ()
+sayHello name = putStrLn ("Hallo, " ++ name ++ " ini dari module!")
 
