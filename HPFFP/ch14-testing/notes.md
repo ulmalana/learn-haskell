@@ -34,3 +34,9 @@
 ## Conventional testing
 
 * Use `Hspec` to demonstrate a simple test case
+
+## Idempotence
+
+* applying the same function multiple times doesnt produce a different result
+  from the first time.
+* Example: multiplying by one or zero.
