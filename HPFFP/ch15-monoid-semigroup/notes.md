@@ -61,6 +61,5 @@ ambiguity).
     * But with `(<>)`, we can easily write:
     * `(Sum 1) <> (Sum 2) <> (Sum 3)` -> `Sum {getSum = 6}`
     * We can also put them in a list and use `mconcat`:
-    * `mconcat [(Product 2), (Product 3), (Product 4)]` -> Product {getProduct
-      24}
+    * `mconcat [(Product 2), (Product 3), (Product 4)]` -> `Product {getProduct 24}`
 
