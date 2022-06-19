@@ -15,6 +15,8 @@
     * `mappend mempty x = x`
 * **In plain english**: **Monoid** is a **function** that takes **2 arguments**
   and follow 2 laws, **associativity and identity**.
+    * Although it follows law of associativity, **not all Monoid** follow law
+      of **commutativity**.
 * `Monoid` typeclass
     * ```
         class Monoid m where
@@ -63,3 +65,41 @@ ambiguity).
     * We can also put them in a list and use `mconcat`:
     * `mconcat [(Product 2), (Product 3), (Product 4)]` -> `Product {getProduct 24}`
 
+## Laws
+
+* **Left identity**
+    * `mappend mempty x = x`
+* **Right identity**
+    * `mappend x mempty = x`
+* **Associativity**
+    * `mappend x (mappend y z) = mappend (mappend x y) z`
+
+* `mconcat = foldr mappend mempty`
+
+* All the laws above can be guaranteed even when we dont know *what monoid*
+  we'll be working with.
+
+## Different typeclass instance, same representation
+
+* **Mappending** is perhaps best thought of **not as a way of combining values** like addition or concatenation does, but as a way **to condense any set of values to a summary value**.
+
+* **Example**: Boolean has two possible monoids:
+    * conjunction (`All` newtype)
+    * `All True <> All True` -> `All {getAll = True}`
+    * disjunction (`Any` newtype)
+    * `Any True <> Any True` -> `Any {getAny = True}`  
+* Mappending is less about combining and more about **condensing or reducing**
+* `Maybe` type has more than two possible Monoids. Example:
+    * `First`: return the first/leftmost non-Nothing value
+    * `First (Just 1) \`mappend\` First (Just 2)` -> `First {getFirst = Just
+      1}`
+    * `Last`: returns the last/rightmost non-Nothing value
+    * `Last (Just 1) \`mappend\` Last (Just 2)` -> `Last {getLast = Just 2}`
+
+## Orphan instance
+
+* Orphan instance is a typeclass instance for type T which is not defined in
+  the module where type T is defined.
+* **AVOID THIS AT ALL COST**
+* It can mess up with the behaviour of our programs when there are multiple
+  orphan instances.
