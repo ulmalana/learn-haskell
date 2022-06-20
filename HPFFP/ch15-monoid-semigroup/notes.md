@@ -103,3 +103,15 @@ ambiguity).
 * **AVOID THIS AT ALL COST**
 * It can mess up with the behaviour of our programs when there are multiple
   orphan instances.
+
+## Semigroup
+
+* **Semigroup** is a Monoid **without an identity**.
+    * the core operation: **binary and associative**
+* `Semigroup` class
+    * ```
+        class Semigroup a where
+            (<>) :: a -> a -> a
+      ```
+    * the only law left: `(a <> b) <> c = a <> (b <> c)`
+
