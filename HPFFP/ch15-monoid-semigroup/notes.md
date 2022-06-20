@@ -91,10 +91,10 @@ ambiguity).
 * Mappending is less about combining and more about **condensing or reducing**
 * `Maybe` type has more than two possible Monoids. Example:
     * `First`: return the first/leftmost non-Nothing value
-    * `First (Just 1) \`mappend\` First (Just 2)` -> `First {getFirst = Just
+    * ``First (Just 1) `mappend` First (Just 2)`` -> `First {getFirst = Just
       1}`
     * `Last`: returns the last/rightmost non-Nothing value
-    * `Last (Just 1) \`mappend\` Last (Just 2)` -> `Last {getLast = Just 2}`
+    * ``Last (Just 1) `mappend` Last (Just 2)`` -> `Last {getLast = Just 2}`
 
 ## Orphan instance
 
@@ -114,4 +114,26 @@ ambiguity).
             (<>) :: a -> a -> a
       ```
     * the only law left: `(a <> b) <> c = a <> (b <> c)`
+* Because it has no identity, it is a **weaker algebra**.
 
+### `NonEmpty` type
+* `NonEmpty` list type: `Semigroup` but not `Monoid`.
+    * a list that can never be empty
+    * ```
+        data NonEmpty a = a :| [a] deriving (Eq, Show, Ord)
+      ``` 
+* Useful for forcing a list that cant be empty.i
+
+## Types vs operation
+
+* There is an inverse relationship between the operations permitted over a type
+  and the number of types that can satisfy.
+* `id :: a -> a`
+    * Number of types: Infinite
+    * Number of operation: One
+* `inc :: Num a => a -> a`
+    * Number of types: anything that implements `Num`
+    * Number of operations: 7 methods in `Num`
+* `OnlyInt :: Int -> Int`
+    * Number of types: One (`Int`)
+    * Number of operations: more than 7.
