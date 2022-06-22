@@ -70,8 +70,7 @@ structure of a structure**. Example: working with list of `Maybe String`
         > (fmap . fmap) replaceWithP lmls
         [Just 'p', Nothing, Just 'p']
 
-        -- lifting thrice to alter the content of ha inside Maybe inside the
-list
+        -- lifting thrice to alter the content of ha inside Maybe inside the list
         > (fmap . fmap .fmap) replaceWithP lmls
         [Just "pp", Nothing, Just ""]
 
