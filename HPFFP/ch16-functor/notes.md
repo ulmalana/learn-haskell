@@ -87,5 +87,60 @@ structure of a structure**. Example: working with list of `Maybe String`
       -> \* -> \***
     * We have to deal only with one type argument.
 * Applying the first type argument will change the kind to **\* -> \***.
-* Thus, in Tuple and `Either` we only transform the second argument and
-      ignore the first argument.
+* Thus, in Tuple and `Either` we only transform the second argument and ignore the first argument.
+
+## Ignoring possibilities
+
+* Functor for `Maybe` and `Either` can be used to ignore error or failure cases 
+  because it doesnt touch the leftmost value.
+* Instead of creating function with pattern matching, we can use `fmap`.
+    * ```
+        -- without fmap
+        incIfJust :: Num a => Maybe a -> Maybe a
+        incIfJust (Just n) = Just $ n + 1
+        incIfJust Nothing = Nothing
+
+        -- with fmap
+        incMaybe :: Num a => Maybe a -> Maybe a
+        incMaybe m = fmap (+1) m
+
+        -- lifted version
+        liftedInc :: (Functor f, Num b) => f b -> f b
+        liftedInc = fmap (+1)
+      ```
+
+## IO Functor
+
+* `IO` is an abstract datatype and has no data constructor to pattern match.
+* We can only work with typeclasses `IO` provides
+* Example
+    * ```
+        getInt :: IO Int
+        getInt = fmap read getLine
+
+        > fmap (+1) getInt
+        10
+        11
+      ```
+
+## Something Different: Natural transformation
+
+* Functor is about lifting functions over a structure for transforming the
+  contents and leave the structure alone.
+* What if we want to **transform only the structure** and **leave the content alone**?
+    * It is called **natural transformation**
+* We can define natural transformation with the following code
+    * ```
+        {-# LANGUAGE RankNTypes #-}
+
+        type Nat f g = forall a . f a -> g a
+      ```
+    * the quantification `forall` is usefule for ensuring that the content is
+      not changed, only the structure `f` and `g`.
+    * language pragma RankNTypes is used for supporting `forall`
+
+## Functors are unique for a given datatype
+
+* For Monoid, a datatype may have multiple Monoid instances (differentiate
+  using `newtype`)
+* However, for Functor, a datatype has a unique Functor instance.
