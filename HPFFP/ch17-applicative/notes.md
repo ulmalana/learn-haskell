@@ -96,3 +96,32 @@
         > ((Product 4), (+6)) <*> ((Product 2), 4)
         (Product {getProduct = 8}, 10)
       ```
+
+## Applicative in use
+
+### List Applicative
+
+* ```
+    (<*>) ::  f (a -> b) ->  f  a ->  f  b    -- default definition
+    (<*>) :: [ ] (a -> b) -> [ ] a -> [ ] b   -- for list
+  ```
+* With list applicative, we are mapping **a plurality of functions** over **a
+  plurality of values**.
+    * ```
+        > [(+1), (*2)] <*> [2,4]
+        [3,5,4,8]
+      ```
+* In some sense, it is similar to **cartesian product**
+    * ```
+        > (,) <$> [1,2] <*> [3,4]
+        [(1,3), (1,4), (2,3), (2,4)]
+      ```
+* When combining `fmap` with `ap`, first evaluate the `fmap`
+    * ```
+        (+) <$> [1,2] <*> [3,5] == ((+) <$> [1,2]) <*> [3,5]
+        
+        [(+1), (+2)] <\*> [3,5]
+
+        [4,6,5,7]
+      ```
+    * Or we can use `liftA2`: `liftA2 (+) [1, 2] [3, 5]`
