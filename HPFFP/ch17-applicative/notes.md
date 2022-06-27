@@ -125,3 +125,43 @@
         [4,6,5,7]
       ```
     * Or we can use `liftA2`: `liftA2 (+) [1, 2] [3, 5]`
+
+### Identity
+
+* ```
+    (<*>) ::        f (a -> b) ->        f a ->        f b
+    (<*>) :: Identity (a -> b) -> Identity a -> Identity b
+  ```
+
+* Having this extra bit of structure around our values lifts the `const` from
+  mapping over the list to mappinf over Identity
+    * ```
+        > const <$> [1,2,3] <*> [9,9,9]
+        [1,1,1,2,2,2,3,3,3]
+        > const <$> Identity [1,2,3] <*> Identity [9,9,9]
+        Identity [1,2,3]
+      ```
+
+### Constant
+
+* **This maybe different in newer GHC version**
+
+* ```
+    (<*>) ::          f (a -> b) ->          f a ->          f b
+    (<*>) :: Constant e (a -> b) -> Constant e a -> Constant e b
+  ```
+* This is similar to `const`, takes two args but discards one.
+    * cant do anything because it can only hold onto one value
+    * ```
+        > Constant (Sum 1) <*> Constant (Sum 2)
+        Constant {getConstant = Sum {getSum = 3}}
+      ```
+
+### Maybe Applicative
+
+* ```
+    (<*>) ::     f (a -> b) ->     f a ->     f b
+    (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
+  ```
+
+
