@@ -164,4 +164,31 @@
     (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
   ```
 
+## Applicative laws
 
+### Identity
+* `pure id <\*> v = v`
+
+### Composition
+* `pure (.) <\*> u <\*> v <\*> w = u <\*> (v <\*> w)`
+* `pure (.) <\*> [(+1)] <\*> [(\*2)] <\*> [1,2,3]`
+    * `[(+1)] <\*> ([(\*2)] <\*> [1,2,3])`
+* `pure (.) <\*> Just (+1) <\*> Just (\*2) <\*> Just 1`
+    * `Just (+1) <\*> (Just (\*2) <\*> Just 1)
+
+### Homomorphism
+
+* **Homomorphism** is a structure-preserving map between two categories.
+    * Applying **a function embedded in some structure** to **a value embedded in some structure** should be the same as applying **a function to a value without affecting any outside structure**.
+
+* `pure f <\*> pure x = pure (f x)`
+    * `pure (+1) <\*> pure 1 == pure ((+1) 1)`
+
+### Interchange
+
+* `u <\*> pure y = pure ($ y) <\*> u`
+    * `(Just (+2) <\*> pure 2) == (pure ($ 2) <*> Just (+2))`
+    * `pure ( $ 2) <\*> Just (+2)` -> `Just ((+2) $ 2)`
+* More examples:
+    * `[(+1), [(\*2)] <*> pure 1` == `pure ($ 1) <*> [(+1), (*2)]`
+    * `Just (+3) <*> pure 1` == `pure ($ 1) <*> Just (+3)`
