@@ -59,3 +59,11 @@ Monad is an **applicative functor with some unique features**.
       ```
     * The differing behaviour has to do with **which list monoid is being used**.
 
+## Do syntax
+
+* Do syntax is the sugar version of binding sequence of actions.
+* Sequencing two actions in `Applicative` and `Monad`
+    * ```
+        (*>) :: Applicative f => f a -> f b -> f b
+        (>>) :: Monad m       => m a -> m b -> m b
+      ```
