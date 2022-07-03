@@ -67,3 +67,39 @@ Monad is an **applicative functor with some unique features**.
         (*>) :: Applicative f => f a -> f b -> f b
         (>>) :: Monad m       => m a -> m b -> m b
       ```
+
+## Examples of Monad use
+
+### List
+* Binding in list
+    * ```
+        (>>=) :: Monad m => m  a -> (a ->  m  b) ->  m  b
+        (>>=) ::           [ ] a -> (a -> [ ] b) -> [ ] b
+        
+        return :: Monad m => a ->  m  a
+        return ::            a -> [ ] a
+        
+        (>>=) :: [a]  -> (a -> [b])   -> [b]
+        return :: a -> [a]
+      ```
+
+### Maybe
+* Binding in `Maybe`
+    * ```
+        (>>=) :: Monad m => m a -> (a ->     m b) ->     m b
+        (>>=) ::        Maybe a -> (a -> Maybe b) -> Maybe b
+
+        return :: Monad m => a ->     m a
+        return ::            a -> Maybe a
+      ```
+
+### Either
+* Binding in `Either`
+    * ```
+        (>>=) :: Monad m => m a -> (a ->        m b) ->        m b
+        (>>=) ::     Either e a -> (a -> Either e b) -> Either e b
+
+        return :: Monad m => a ->        m a
+        return ::            a -> Either e a
+      ```
+
