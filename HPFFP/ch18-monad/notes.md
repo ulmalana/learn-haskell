@@ -103,3 +103,16 @@ Monad is an **applicative functor with some unique features**.
         return ::            a -> Either e a
       ```
 
+## Monad laws
+
+### Identity
+* Right identity
+    * `m >>= return = m`
+* Left identity
+    * `return x >>= f x`
+* Both laws say that `return` should be neutral and not perform any
+  computation.
+
+### Associativity
+* Regrouping the functions should not have any impact on the final result
+    * `(m >>= f) >>= g = m >>= (\x -> f x >>= g)`
