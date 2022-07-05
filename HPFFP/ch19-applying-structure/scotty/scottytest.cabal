@@ -1,0 +1,17 @@
+-- scottytest.cabal
+
+name:           scottytest
+version:        0.1.0.0
+-- license-file:
+author:         RM
+maintainer:     muhamaul@gmail.com
+category:       WEB
+build-type:     Simple
+cabal-version:  >=1.10
+
+library
+  exposed-modules:      ScottyTest
+  ghc-options:          -Wall -fwarn-tabs
+  build-depends:        base >=4.7 && < 5, scotty
+  hs-source-dirs:       .
+  default-language:     Haskell2010 
