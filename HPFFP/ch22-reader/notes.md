@@ -56,3 +56,19 @@ argument**.
         (<*>) ::    f (a -> b) ->     f a ->      f b
         (<*>) :: (r -> a -> b) -> (r -> a) -> (r -> b)
       ```
+
+## Monad of functions
+
+```
+    (>>=) :: Monad m =>     m a -> (a ->     m b) ->      m b
+    (>>=) ::           (->) r a -> (a -> (->) r b -> (->) r b
+    (>>=) ::           (r -> a) -> (a -> r -> b) -> (r -> b) 
+
+    return :: Monad m => a ->      m a
+    return ::            a -> (->) r a
+    return ::            a ->   r -> a
+```
+
+## ReaderT is more prevalent than Reader
+
+Reader usually comes with a Monad and become **transformers** (`ReaderT`).
