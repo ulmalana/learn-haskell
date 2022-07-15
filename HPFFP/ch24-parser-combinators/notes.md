@@ -44,3 +44,15 @@ integer) with `Alternative` typeclass.
                 many_v = some_v <|> pure []
                 some_v = (fmap (:) v) <*> many_v
 ```
+## Character and token parsers
+
+Traditionally, parsing has been done in two stages:
+* Lexing (tokenization)
+    Lexer will emit token to the parser until it has no more to emit. It is
+more about **ignoring the noise and focus on the structures we are parsing**.
+
+* Parsing
+    Parser then structures the stream of tokens into a tree (abstract syntax
+tree or AST).
+
+
