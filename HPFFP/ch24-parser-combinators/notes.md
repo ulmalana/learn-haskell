@@ -56,3 +56,16 @@ more about **ignoring the noise and focus on the structures we are parsing**.
 tree or AST).
 
 
+## Marshalling from AST to datatype
+
+* **Marshalling** is the process of preparind fata for serialization
+* **Unmarshalling** is to get the data from a serialized one.
+
+### How it works
+
+**parse** -> **unmarshall**
+`Text` -> `Structure` -> `Meaning`
+
+**marshall** -> **serialize**
+`Meaning` -> `Structure` -> `Text`
+
