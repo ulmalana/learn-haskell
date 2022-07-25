@@ -148,3 +148,23 @@ Finally, Monad instance of `EitherT`:
             	(a, ns) <- smas s
             	runStateT (f a) ns
 ```
+## MonadTrans
+
+MonadTrans is a **typeclass** with one core method: `lift`. It is about lifting
+actions in some Monad over a transformer type which wraps itself in the
+original Monad.
+
+```
+class MonadTrans t where
+    lift :: (Monad m) => m a -> t m a
+
+```
+
+## MonadIO
+
+MonadIO is intended to **keep lifting** IO action until it is lifted over all
+structure.
+```
+class (Monad m) => MonadIO m where
+    liftIO :: IO a -> m a
+```
